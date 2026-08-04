@@ -40,7 +40,7 @@
             font-family: 'Alex Brush', cursive;
             font-weight: 400;
             text-transform: none;
-        }
+        } 
 
         .design-project-title {
             font-size: 128px;
@@ -116,6 +116,73 @@
                 width: 170px;
             }
         }
+        .invia-card-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 920px;
+            height: 920px;
+            transform: translate(-50%, calc(-50% - 30px));
+            border-radius: 50%;
+            background-color: var(--card-glow-color, #C79A4B);
+            opacity: var(--card-glow-opacity, 0.2);
+            filter: blur(140px);
+            z-index: 1;
+            pointer-events: none;
+            transition: background-color 0.6s ease, opacity 0.6s ease;
+        }
+        @media (max-width: 991px) {
+            .invia-card-glow {
+                width: 620px;
+                height: 620px;
+                filter: blur(100px);
+            }
+        }
+        @media (max-width: 767px) {
+            .invia-card-glow {
+                width: 420px;
+                height: 420px;
+                filter: blur(70px);
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .invia-card-glow {
+                transition: none;
+            }
+        }
+        .invia-section-label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-family: var(--tp-ff-body);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #C1673B;
+        }
+        .invia-section-heading {
+            margin-bottom: 16px;
+            font-family: var(--tp-ff-heading);
+            font-weight: 700;
+            font-size: 60px;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--tp-common-black);
+        }
+        @media (max-width: 991px) {
+            .invia-section-heading {
+                font-size: 44px;
+            }
+        }
+        @media (max-width: 767px) {
+            .invia-section-label {
+                font-size: 12px;
+                letter-spacing: 0.14em;
+            }
+            .invia-section-heading {
+                font-size: 32px;
+            }
+        }
         .invia-card-dots {
             display: flex;
             align-items: center;
@@ -159,12 +226,23 @@
             border-color: #C1673B;
         }
         .invia-card-info {
+            flex: 0 1 340px;
+            width: 340px;
+            min-width: 0;
             text-align: center;
-            min-width: 260px;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .invia-card-info.is-fading {
             opacity: 0;
+            transform: translateY(10px);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .invia-card-info {
+                transition: opacity 0.3s ease;
+            }
+            .invia-card-info.is-fading {
+                transform: none;
+            }
         }
         .invia-card-name {
             margin-bottom: 6px;
@@ -173,13 +251,40 @@
         .invia-card-desc {
             margin-bottom: 14px;
             font-size: 14px;
+            line-height: 1.5;
+            min-height: 42px;
+        }
+        @media (max-width: 991px) {
+            .invia-card-nav {
+                gap: 24px;
+            }
+            .invia-card-info {
+                flex-basis: 280px;
+                width: 280px;
+            }
+        }
+        @media (max-width: 767px) {
+            .invia-card-nav {
+                gap: 20px;
+            }
+            .invia-card-info {
+                flex-basis: 230px;
+                width: 230px;
+            }
         }
         @media (max-width: 575px) {
             .invia-card-nav {
-                gap: 15px;
+                gap: 12px;
             }
             .invia-card-info {
-                min-width: 180px;
+                flex-basis: 190px;
+                width: 190px;
+            }
+            .invia-card-name {
+                font-size: 17px;
+            }
+            .invia-card-desc {
+                min-height: 63px;
             }
         }
     </style>
@@ -549,9 +654,15 @@
                 <!-- banner area end -->
 
                 <!-- invitation card fan area start -->
-                <div class="invia-card-area pt-120 pb-120">
+                <div class="invia-card-area title-box pt-120 pb-120">
                     <div class="container container-1680">
+                        <div class="invia-card-title-box text-center mb-60">
+                            <span class="invia-section-label">Bộ sưu tập mẫu</span>
+                            <h2 class="invia-section-heading tp_reveal_anim">Thiệp Cho Mọi Dịp</h2>
+                            <p class="tp_reveal_anim" data-delay=".15">Hàng chục mẫu thiết kế sẵn, chọn nhanh và tuỳ biến theo phong cách của bạn.</p>
+                        </div>
                         <div class="invia-card-fan" id="inviaCardFan">
+                            <div class="invia-card-glow" id="inviaCardGlow" aria-hidden="true"></div>
                             <div class="invia-card"><img src="assets/img/portfolio/portfolio-masonry/portfolio-masonry-1.jpg" alt="Đám Cưới Cổ Điển"></div>
                             <div class="invia-card"><img src="assets/img/portfolio/portfolio-masonry/portfolio-masonry-2.jpg" alt="Sinh Nhật Bé Yêu"></div>
                             <div class="invia-card"><img src="assets/img/portfolio/portfolio-masonry/portfolio-masonry-3.jpg" alt="Đám Cưới Tối Giản"></div>
@@ -1404,6 +1515,13 @@
                 2: { x: 480, y: 90, r: 28, s: 0.78, z: 30 },
                 '-2': { x: -480, y: 90, r: -28, s: 0.78, z: 30 }
             };
+            var GLOW_COLORS = [
+                { hex: '#C79A4B', opacity: 0.18 },
+                { hex: '#E87A93', opacity: 0.22 },
+                { hex: '#6FA394', opacity: 0.20 },
+                { hex: '#965C82', opacity: 0.20 },
+                { hex: '#6FA8CF', opacity: 0.24 }
+            ];
 
             var fanEl = document.getElementById('inviaCardFan');
             var dotsEl = document.getElementById('inviaCardDots');
@@ -1447,6 +1565,12 @@
                     dot.classList.toggle('active', i === activeIndex);
                 });
 
+                var glow = GLOW_COLORS[activeIndex];
+                if (glow) {
+                    fanEl.style.setProperty('--card-glow-color', glow.hex);
+                    fanEl.style.setProperty('--card-glow-opacity', glow.opacity);
+                }
+
                 if (opts.immediate) {
                     nameEl.textContent = CARD_DATA[activeIndex].name;
                     descEl.textContent = CARD_DATA[activeIndex].desc;
@@ -1459,7 +1583,7 @@
                     nameEl.textContent = CARD_DATA[activeIndex].name;
                     descEl.textContent = CARD_DATA[activeIndex].desc;
                     infoEl.classList.remove('is-fading');
-                }, 250);
+                }, 300);
             }
 
             function goTo(i) {
